@@ -1,28 +1,45 @@
-import React, {useState} from 'react';
-//  We can only use hooks inside a function based components not class based componenets
+import React, {useState,useEffect} from 'react';
 function App() {
-  const [count, setcount] = useState(4)
-  function decrementCount(){
-    // Incorrect way of updating your state
-    // setcount(count - 1)
-    // Correct way of updating your state
-    setcount(prevcount => prevcount - 1)
+  const [windowWidth, setwindowWidth] = useState(window.innerWidth)
+  const handleResize = () => {
+    setwindowWidth(window.innerWidth)
   }
-  function incrementCount(){
-    // Incorrect way of updating your state
-    // setcount(count - 1)
-    // Correct way of updating your state
-    setcount(prevcount => prevcount + 1)
-  }
-  return (
-    <> 
-    <button onClick={decrementCount}>-</button>
-    <span>{count}</span>
-    <button onClick={incrementCount}>+</button>
-    </>
-  );
+  useEffect(()=>{
+    window.addEventListener('resize',handleResize)
+
+    return ()=> {
+      window.addEventListener('resize',handleResize)
+    }
+  },[])
+
+  return(
+    <div>{windowWidth}</div>
+  )
 }
 
+// First example of useState
+// function App() {
+//   const [resourceType, setResourceType] = useState('posts')
+//   const [items,setItems] = useState([])
+
+//   useEffect(()=>{
+//     fetch(`https://jsonplaceholder.typicode.com/${resourceType}`)
+//     .then(response => response.json())
+//     .then(json=> setItems(json))
+//   },[resourceType])
+
+//   return(
+//     <>
+//     <div>
+//       <button onClick={()=> setResourceType('posts')}>Posts</button>
+//       <button onClick={()=> setResourceType('users')}>Users</button>
+//       <button onClick={()=> setResourceType('comments')}>Comments</button>
+//     </div>
+//     <h1>{resourceType}</h1>
+//     {items.map(item => {
+//       return <pre>{JSON.stringify(item)}</pre>
+//     })}
+//       </>
+//   )
+// }
 export default App;
-//  React Hooks must be called in the exact same order in every component render  
-// Checking working or not
