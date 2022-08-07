@@ -1,45 +1,17 @@
-import React, {useState,useEffect} from 'react';
+import React, { useState } from 'react'
+import {data} from './data'
+import List from './List'
 function App() {
-  const [windowWidth, setwindowWidth] = useState(window.innerWidth)
-  const handleResize = () => {
-    setwindowWidth(window.innerWidth)
-  }
-  useEffect(()=>{
-    window.addEventListener('resize',handleResize)
-
-    return ()=> {
-      window.addEventListener('resize',handleResize)
-    }
-  },[])
-
-  return(
-    <div>{windowWidth}</div>
+  const [people, setPeople] = useState(data)
+  return (
+    <main>
+      <section className='container'>
+        <h3>{people.length} birthdays today</h3>
+        <List people={people} />
+        <button onClick={() => setPeople([])}>clear all</button>
+      </section>
+    </main>
   )
 }
 
-// First example of useState
-// function App() {
-//   const [resourceType, setResourceType] = useState('posts')
-//   const [items,setItems] = useState([])
-
-//   useEffect(()=>{
-//     fetch(`https://jsonplaceholder.typicode.com/${resourceType}`)
-//     .then(response => response.json())
-//     .then(json=> setItems(json))
-//   },[resourceType])
-
-//   return(
-//     <>
-//     <div>
-//       <button onClick={()=> setResourceType('posts')}>Posts</button>
-//       <button onClick={()=> setResourceType('users')}>Users</button>
-//       <button onClick={()=> setResourceType('comments')}>Comments</button>
-//     </div>
-//     <h1>{resourceType}</h1>
-//     {items.map(item => {
-//       return <pre>{JSON.stringify(item)}</pre>
-//     })}
-//       </>
-//   )
-// }
-export default App;
+export default App
