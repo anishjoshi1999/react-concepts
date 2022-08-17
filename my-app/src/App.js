@@ -1,15 +1,11 @@
 import React from 'react'
-import ComponentC from './ComponentC';
-export const UserContext = React.createContext();
-export const ChannelContext = React.createContext();
+import Header from './components/Header';
+
 function App() {
+
   return (
-    <div>
-      <UserContext.Provider value={"Anish"}>
-        <ChannelContext.Provider value={'dhangadhi'}>
-          <ComponentC></ComponentC>
-        </ChannelContext.Provider>
-      </UserContext.Provider>
+    <div className='container'>
+     <Header title="Task Tracker"></Header> 
     </div>
   )
 }
